@@ -1,21 +1,30 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-// You can import supported modules from npm
-import { Card } from 'react-native-paper';
+import {
+  SafeAreaView, SafeAreaProvider
+} from 'react-native-safe-area-context';
 
-// or any files within the Snack
-import AssetExample from './components/AssetExample';
+import { NavigationContainer } from '@react-navigation/native';
+
+import DetailScreen from './screens/DetailScreen.js'
+
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.paragraph}>
-        Change code in the editor and watch it change on your phone! Save to get a shareable url.
-      </Text>
-      <Card>
-        <AssetExample />
-      </Card>
-    </View>
+    <SafeAreaProvider style={styles.container}>
+        <NavigationContainer >
+          <SafeAreaView style={{ flex: 1 }}>
+            <Stack.Navigator  >
+              <Stack.Screen name="detail" component={DetailScreen} 
+                options={{title: "Detail", headerShown: false }} 
+              />
+            </Stack.Navigator>
+          </SafeAreaView>
+        </NavigationContainer>
+      </SafeAreaProvider>
   );
 }
 
@@ -25,11 +34,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#ecf0f1',
     padding: 8,
-  },
-  paragraph: {
-    margin: 24,
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
   },
 });
